@@ -7,18 +7,18 @@ if len(sys.argv) < 2:
 
 img_path = sys.argv[1]
 if not os.path.exists(img_path):
-    print("❌ File not found:", img_path)
+    print("File not found:", img_path)
     sys.exit(1)
 
 image = cv2.imread(img_path)
 if image is None:
-    print("❌ Could not load image:", img_path)
+    print("Could not load image:", img_path)
     sys.exit(1)
 
 h, w = image.shape[:2]
 checkpoint = "sam_vit_h_4b8939.pth"
 if not os.path.exists(checkpoint):
-    print("❌ Missing model checkpoint.")
+    print("Missing model checkpoint.")
     print("Download it via:")
     print("wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth")
     sys.exit(1)
