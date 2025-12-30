@@ -62,3 +62,4 @@ Using additional landmarks:
 9. AlL – left alare (nose widest point)
 10. AlR – right alare
 
+http://www.virtualffs.co.uk/My_Facial_Feminisation_Thesis_Part_8_How_Feminine_is_Feminine_Enough.html# skull-based-facial-reconstruction
