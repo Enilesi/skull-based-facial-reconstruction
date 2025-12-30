@@ -3,3 +3,5 @@
 venv/
 */.venv/
 */venv/
+face-reconstruction/landmarked
+face-reconstruction/landmarked_auto
