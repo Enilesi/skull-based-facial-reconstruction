@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 import requests
 
-IMAGE_PATH = "skull-male.png"
+IMAGE_PATH = "skull-female.jpg"
 OUT_IMAGE_PATH = "skull_with_landmarks.png"
 API_URL = "http://127.0.0.1:8000/predict"
 
-REAL_XCB_MM = 140.0  # calibration reference
+REAL_XCB_MM = 140.0  
 
 labels = [
     "EuL", "EuR",
@@ -66,7 +66,6 @@ measurements = {
     "OBBL": dist(MfL, MfR) * mm_per_px,
     "NLB": dist(AlL, AlR) * mm_per_px,
 
-    # Not recoverable from single 2D image
     "BBH": None,
     "BNL": None,
     "BPL": None,

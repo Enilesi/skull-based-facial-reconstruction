@@ -1,28 +1,41 @@
-from dataset import SkullLandmarkDataset
-from model import LandmarkCNN
-from torch.utils.data import DataLoader
 import torch
 import torch.nn as nn
+from torch.utils.data import DataLoader
 
-LANDMARK_ROOT = "../landmarked"
-BATCH_SIZE = 4
+from model import LandmarkCNN
+from dataset import SkullLandmarkDataset
+
+import sys
+import os
+
+CURRENT_DIR = os.path.dirname(__file__)
+LANDMARKS_DIR = os.path.abspath(os.path.join(CURRENT_DIR, ".."))
+sys.path.append(LANDMARKS_DIR)
+
+from landmark_slots import NUM_LANDMARK_SLOTS
+
+BATCH_SIZE = 2
 EPOCHS = 200
 LR = 1e-3
 
-dataset = SkullLandmarkDataset(LANDMARK_ROOT)
-loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
+LANDMARK_ROOT = "../../landmarked"
+MODEL_PATH = "landmark_model.pth"
 
-num_landmarks = len(dataset[0][1]) // 2
+train_ds = SkullLandmarkDataset(LANDMARK_ROOT, split="train")
+val_ds   = SkullLandmarkDataset(LANDMARK_ROOT, split="val")
 
-model = LandmarkCNN(num_landmarks)
+train_loader = DataLoader(train_ds, batch_size=BATCH_SIZE, shuffle=True)
+val_loader   = DataLoader(val_ds, batch_size=BATCH_SIZE, shuffle=False)
+
+model = LandmarkCNN(NUM_LANDMARK_SLOTS)
 optimizer = torch.optim.Adam(model.parameters(), lr=LR)
 criterion = nn.MSELoss()
 
-model.train()
-
 for epoch in range(EPOCHS):
-    total_loss = 0.0
-    for imgs, coords in loader:
+    model.train()
+    train_loss = 0.0
+
+    for imgs, coords in train_loader:
         preds = model(imgs)
         loss = criterion(preds, coords)
 
@@ -30,10 +43,25 @@ for epoch in range(EPOCHS):
         loss.backward()
         optimizer.step()
 
-        total_loss += loss.item()
+        train_loss += loss.item()
+
+    train_loss /= len(train_loader)
+
+    model.eval()
+    val_loss = 0.0
+    with torch.no_grad():
+        for imgs, coords in val_loader:
+            preds = model(imgs)
+            loss = criterion(preds, coords)
+            val_loss += loss.item()
+
+    val_loss /= max(1, len(val_loader))
 
     if epoch % 20 == 0:
-        print(f"Epoch {epoch}: loss={total_loss/len(loader):.6f}")
+        print(
+            f"Epoch {epoch:3d} | "
+            f"train={train_loss:.6f} | val={val_loss:.6f}"
+        )
 
-torch.save(model.state_dict(), "landmark_model.pth")
-print("Model saved to landmark_model.pth")
+torch.save(model.state_dict(), MODEL_PATH)
+print(f"Model saved to {MODEL_PATH}")

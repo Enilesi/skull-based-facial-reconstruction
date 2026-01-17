@@ -1,19 +1,12 @@
 import subprocess
 import json
 
-# ----------------------------
-# USER INPUT
-# ----------------------------
 LANDMARK_PREDICT_SCRIPT = "click_landmarks.py"
 IMAGE_PREDICT_SCRIPT = "predict_image.py"
 
 LANDMARK_WEIGHT = 0.3
 IMAGE_WEIGHT = 0.7
 
-
-# ----------------------------
-# Run landmark prediction
-# ----------------------------
 print("Running landmark-based prediction...")
 lm_proc = subprocess.run(
     ["python", LANDMARK_PREDICT_SCRIPT],
@@ -24,7 +17,6 @@ lm_proc = subprocess.run(
 lm_out = lm_proc.stdout
 print(lm_out)
 
-# Extract male_probability from landmark output
 def extract_prob(text):
     for line in text.splitlines():
         if "male_probability" in line:
@@ -35,9 +27,6 @@ p_landmark = extract_prob(lm_out)
 if p_landmark is None:
     raise RuntimeError("Could not extract landmark probability")
 
-# ----------------------------
-# Run image-based prediction
-# ----------------------------
 print("\nRunning image-based prediction...")
 img_proc = subprocess.run(
     ["python", IMAGE_PREDICT_SCRIPT],
@@ -52,14 +41,11 @@ for line in img_out.splitlines():
     if "Male probability" in line:
         p_image = float(line.split(":")[-1].strip())
 
-# ----------------------------
-# Fusion
-# ----------------------------
 p_final = LANDMARK_WEIGHT * p_landmark + IMAGE_WEIGHT * p_image
 
-if p_final >= 0.65:
+if p_final >= 0.55:
     sex = "M"
-elif p_final <= 0.35:
+elif p_final <= 0.5:
     sex = "F"
 else:
     sex = "Ambiguous"

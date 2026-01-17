@@ -5,7 +5,7 @@ from PIL import Image
 from pathlib import Path
 
 MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "sex_cnn.pt"
-IMG_PATH = "img.jpg"
+IMG_PATH = "skull-female.jpg"
 
 IMG_SIZE = 224
 
@@ -18,7 +18,8 @@ tf = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-model = models.resnet18(pretrained=False)
+model = models.resnet18(weights=None)
+
 model.fc = nn.Sequential(
     nn.Linear(model.fc.in_features, 128),
     nn.ReLU(),

@@ -14,9 +14,6 @@ IMG_SIZE = 224
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# ----------------------------
-# Transforms (CRITICAL)
-# ----------------------------
 train_tf = transforms.Compose([
     transforms.Resize((IMG_SIZE, IMG_SIZE)),
     transforms.RandomHorizontalFlip(),
@@ -34,9 +31,6 @@ val_tf = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-# ----------------------------
-# Dataset
-# ----------------------------
 full_ds = datasets.ImageFolder(DATA_DIR, transform=train_tf)
 
 n_total = len(full_ds)
@@ -53,9 +47,6 @@ print("Classes:", full_ds.classes)
 print("Train size:", len(train_ds))
 print("Val size:", len(val_ds))
 
-# ----------------------------
-# Model
-# ----------------------------
 model = models.resnet18(pretrained=True)
 
 for param in model.parameters():
@@ -73,9 +64,6 @@ model = model.to(device)
 criterion = nn.BCEWithLogitsLoss()
 optimizer = torch.optim.Adam(model.fc.parameters(), lr=LR)
 
-# ----------------------------
-# Training loop
-# ----------------------------
 best_val = 0.0
 
 for epoch in range(EPOCHS):
