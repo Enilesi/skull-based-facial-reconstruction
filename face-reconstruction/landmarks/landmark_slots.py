@@ -1,4 +1,4 @@
-from landmarks_schema import LANDMARKS, SKIP_LANDMARKS
+from landmarks.landmarks_schema import LANDMARKS, SKIP_LANDMARKS
 
 LANDMARK_SLOTS = []
 

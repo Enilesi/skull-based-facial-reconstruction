@@ -2,20 +2,23 @@ import sys
 import cv2
 import json
 import os
-
-SKIP_FIRST_N = 6      # skip first 6 images
-NUM_TO_ANNOTATE = 7  # annotate exactly 7 new ones per sex
-
+import argparse
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 
 from landmarks_schema import LANDMARKS, SKIP_LANDMARKS
 from landmark_colors import LANDMARK_COLORS
 
-BASE_IMAGE_DIR = "../../../data/images"
-OUTPUT_DIR = "../../landmarked"
+BASE_IMAGE_DIR = "data/images"
+OUTPUT_DIR = "data/landmarked"
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--start", type=int, required=True)
+parser.add_argument("-n", type=int, required=True)
+args = parser.parse_args()
+
+START_INDEX = args.start
+NUM_TO_ANNOTATE = args.n
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -51,7 +54,6 @@ def redraw_image():
         lid = p["id"]
         color_name, color = LANDMARK_COLORS[lid]
         x, y = p["x"], p["y"]
-
         cv2.circle(img_display, (x, y), 5, color, -1)
         cv2.putText(
             img_display,
@@ -66,42 +68,32 @@ def redraw_image():
 
 def click_event(event, x, y, flags, param):
     global current_index, current_points
-
     if event != cv2.EVENT_LBUTTONDOWN:
         return
-
     if current_index >= len(LANDMARK_IDS):
         return
-
     lid = LANDMARK_IDS[current_index]
     lname = LANDMARKS[lid][0]
-
     current_points.append({
         "id": lid,
         "name": lname,
         "x": int(x),
         "y": int(y)
     })
-
     current_index += 1
     redraw_image()
-
     print(f"Placed landmark {lid} ({lname}) at ({x},{y})")
 
 def annotate_image(image_path, sex):
     global img, img_display, img_original, current_points, current_index
-
     current_points = []
     current_index = 0
-
     img = cv2.imread(image_path)
     if img is None:
         print(f"[ERROR] Cannot load {image_path}")
         return
-
     img_original = img.copy()
     img_display = img.copy()
-
     cv2.namedWindow("Annotate Skull", cv2.WINDOW_NORMAL)
     cv2.setMouseCallback("Annotate Skull", click_event)
 
@@ -141,20 +133,27 @@ def annotate_image(image_path, sex):
     print(f"[SAVED] {out_img}")
     print(f"[SAVED] {out_json}\n")
 
-
+def numeric_sort(files):
+    def extract_num(name):
+        base = os.path.splitext(name)[0]
+        try:
+            return int(base)
+        except:
+            return float("inf")
+    return sorted(files, key=extract_num)
 
 def run():
-    for sex in ["female", "male"]:
+    for sex in ["female", "male", "unasigned"]:
         img_folder = os.path.join(BASE_IMAGE_DIR, sex)
         out_dir = os.path.join(OUTPUT_DIR, f"landmarked_{sex}")
         os.makedirs(out_dir, exist_ok=True)
 
-        images = sorted([
+        images = numeric_sort([
             f for f in os.listdir(img_folder)
             if f.lower().endswith((".png", ".jpg", ".jpeg", ".webp"))
         ])
 
-        selected = images[SKIP_FIRST_N:SKIP_FIRST_N + NUM_TO_ANNOTATE]
+        selected = images[START_INDEX:START_INDEX + NUM_TO_ANNOTATE]
 
         print(f"\n[{sex.upper()}] Annotating {len(selected)} images")
 
@@ -178,7 +177,6 @@ def run():
                 os.path.join(OUTPUT_DIR, f"{base}_landmarked.png"),
                 os.path.join(out_dir, f"{base}_landmarked.png")
             )
-
 
 if __name__ == "__main__":
     run()
