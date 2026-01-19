@@ -24,4 +24,4 @@ for lid, (name, _, count) in LANDMARKS.items():
             "side": "right"
         })
 
-NUM_LANDMARK_SLOTS = len(LANDMARK_SLOTS)  # MUST be 30
+NUM_LANDMARK_SLOTS = len(LANDMARK_SLOTS) 

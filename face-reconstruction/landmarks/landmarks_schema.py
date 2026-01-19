@@ -1,4 +1,4 @@
-# landmark_id : (name, tissue_depth_row_name, count)
+
 
 LANDMARKS = {
     1:  ("Supraglabella", "Supraglabella", 1),
@@ -18,8 +18,6 @@ LANDMARKS = {
     14: ("Inferior Malar", "Inferior Malar", 2),
     15: ("Lateral Orbit", "Lateral Orbit", 2),
     16: ("Zygomatic Arch", "Zygomatic Arch Midway", 2),
-
-    # 17 skipped
 
     18: ("Gonion", "Gonion", 2),
     19: ("Supra M2", "Supra M2", 2),
