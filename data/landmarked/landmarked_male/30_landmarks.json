@@ -1,0 +1,186 @@
+{
+  "image": "data/images/male/30.jpg",
+  "sex": "male",
+  "landmarks": [
+    {
+      "id": 1,
+      "name": "Supraglabella",
+      "x": 650,
+      "y": 385
+    },
+    {
+      "id": 2,
+      "name": "Glabella",
+      "x": 654,
+      "y": 493
+    },
+    {
+      "id": 3,
+      "name": "Nasion",
+      "x": 651,
+      "y": 554
+    },
+    {
+      "id": 4,
+      "name": "End of Nasals",
+      "x": 650,
+      "y": 627
+    },
+    {
+      "id": 5,
+      "name": "Mid Philtrum",
+      "x": 654,
+      "y": 882
+    },
+    {
+      "id": 6,
+      "name": "Upper Lip Margin",
+      "x": 652,
+      "y": 920
+    },
+    {
+      "id": 7,
+      "name": "Lower Lip Margin",
+      "x": 655,
+      "y": 1041
+    },
+    {
+      "id": 8,
+      "name": "Chin Lip Fold",
+      "x": 648,
+      "y": 1144
+    },
+    {
+      "id": 9,
+      "name": "Mental Eminence",
+      "x": 652,
+      "y": 1214
+    },
+    {
+      "id": 10,
+      "name": "Beneath Chin",
+      "x": 654,
+      "y": 1223
+    },
+    {
+      "id": 11,
+      "name": "Frontal Eminence",
+      "x": 488,
+      "y": 308
+    },
+    {
+      "id": 11,
+      "name": "Frontal Eminence",
+      "x": 832,
+      "y": 301
+    },
+    {
+      "id": 12,
+      "name": "Supraorbital",
+      "x": 545,
+      "y": 493
+    },
+    {
+      "id": 12,
+      "name": "Supraorbital",
+      "x": 784,
+      "y": 493
+    },
+    {
+      "id": 13,
+      "name": "Suborbital",
+      "x": 480,
+      "y": 700
+    },
+    {
+      "id": 13,
+      "name": "Suborbital",
+      "x": 827,
+      "y": 697
+    },
+    {
+      "id": 14,
+      "name": "Inferior Malar",
+      "x": 833,
+      "y": 908
+    },
+    {
+      "id": 14,
+      "name": "Inferior Malar",
+      "x": 470,
+      "y": 911
+    },
+    {
+      "id": 15,
+      "name": "Lateral Orbit",
+      "x": 957,
+      "y": 728
+    },
+    {
+      "id": 15,
+      "name": "Lateral Orbit",
+      "x": 374,
+      "y": 728
+    },
+    {
+      "id": 16,
+      "name": "Zygomatic Arch",
+      "x": 287,
+      "y": 727
+    },
+    {
+      "id": 16,
+      "name": "Zygomatic Arch",
+      "x": 1015,
+      "y": 723
+    },
+    {
+      "id": 18,
+      "name": "Gonion",
+      "x": 961,
+      "y": 1093
+    },
+    {
+      "id": 18,
+      "name": "Gonion",
+      "x": 346,
+      "y": 1092
+    },
+    {
+      "id": 19,
+      "name": "Supra M2",
+      "x": 812,
+      "y": 928
+    },
+    {
+      "id": 19,
+      "name": "Supra M2",
+      "x": 494,
+      "y": 927
+    },
+    {
+      "id": 20,
+      "name": "Occlusal Line",
+      "x": 428,
+      "y": 979
+    },
+    {
+      "id": 20,
+      "name": "Occlusal Line",
+      "x": 880,
+      "y": 982
+    },
+    {
+      "id": 21,
+      "name": "Infra M2",
+      "x": 817,
+      "y": 1012
+    },
+    {
+      "id": 21,
+      "name": "Infra M2",
+      "x": 498,
+      "y": 1027
+    }
+  ]
+}
