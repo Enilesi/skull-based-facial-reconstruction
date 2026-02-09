@@ -5,3 +5,8 @@ venv/
 */venv/
 face-reconstruction/landmarked
 face-reconstruction/landmarked_auto
+*.pyc
+face-reconstruction/landmarks/__pycache__/landmark_slots.cpython-310.pyc
+face-reconstruction/landmarks/__pycache__/landmark_slots.cpython-313.pyc
+face-reconstruction/landmarks/__pycache__/landmarks_schema.cpython-310.pyc
+__pycache__
