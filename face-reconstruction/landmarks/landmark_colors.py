@@ -18,8 +18,6 @@ LANDMARK_COLORS = {
     15: ("gold",          (0, 215, 255)),
     16: ("indigo",        (130,   0,  75)),
 
-    # 17 intentionally skipped
-
     18: ("brown",         (19,  69, 139)),
     19: ("pink",          (203, 192, 255)),
     20: ("navy",          (128,   0,   0)),

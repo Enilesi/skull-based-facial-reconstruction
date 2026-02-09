@@ -63,7 +63,7 @@ skf = StratifiedKFold(n_splits=FOLDS, shuffle=True, random_state=42)
 fold_accuracies = []
 
 for fold, (train_idx, val_idx) in enumerate(skf.split(np.zeros(len(targets)), targets)):
-    print(f"\n=== Fold {fold+1}/{FOLDS} ===")
+    print(f"\nFold {fold+1}/{FOLDS}")
 
     train_ds = Subset(full_ds, train_idx)
     val_ds = Subset(datasets.ImageFolder(DATA_DIR, transform=val_tf), val_idx)
@@ -103,7 +103,7 @@ for fold, (train_idx, val_idx) in enumerate(skf.split(np.zeros(len(targets)), ta
     fold_accuracies.append(best)
 
 
-print("\n=== FINAL RESULTS ===")
+print("\nFINAL RESULTS")
 print("Fold accuracies:", fold_accuracies)
 print("Mean accuracy:", np.mean(fold_accuracies))
 

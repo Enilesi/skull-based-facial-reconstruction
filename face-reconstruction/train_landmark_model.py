@@ -214,12 +214,9 @@ class ResNetHeatmap(nn.Module):
         self.layer3 = m.layer3
         self.layer4 = m.layer4
 
-        self.up1 = nn.Sequential(nn.ConvTranspose2d(512, 256, 4, 2, 1), nn.ReLU(inplace=True),
-                                 nn.Conv2d(256, 256, 3, 1, 1), nn.ReLU(inplace=True))
-        self.up2 = nn.Sequential(nn.ConvTranspose2d(256, 128, 4, 2, 1), nn.ReLU(inplace=True),
-                                 nn.Conv2d(128, 128, 3, 1, 1), nn.ReLU(inplace=True))
-        self.up3 = nn.Sequential(nn.ConvTranspose2d(128, 64, 4, 2, 1), nn.ReLU(inplace=True),
-                                 nn.Conv2d(64, 64, 3, 1, 1), nn.ReLU(inplace=True))
+        self.up1 = nn.Sequential(nn.ConvTranspose2d(512, 256, 4, 2, 1), nn.ReLU(inplace=True), nn.Conv2d(256, 256, 3, 1, 1), nn.ReLU(inplace=True))
+        self.up2 = nn.Sequential(nn.ConvTranspose2d(256, 128, 4, 2, 1), nn.ReLU(inplace=True), nn.Conv2d(128, 128, 3, 1, 1), nn.ReLU(inplace=True))
+        self.up3 = nn.Sequential(nn.ConvTranspose2d(128, 64, 4, 2, 1), nn.ReLU(inplace=True), nn.Conv2d(64, 64, 3, 1, 1), nn.ReLU(inplace=True))
         self.head = nn.Conv2d(64, num_points, 1)
 
     def forward(self, x):
